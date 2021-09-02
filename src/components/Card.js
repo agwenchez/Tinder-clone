@@ -2,39 +2,24 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import axios from 'axios';
 import { Dimensions } from 'react-native';
-
 const { width, height } = Dimensions.get('window')
+
+
 const key = '5f96323678d05ff0c4eb264ef184556868e303b32a2db88ecbf15746e6f25e02';
 
 
-const Card = () => {
-    const [images, setImages] = useState([])
-
-    const fetchImages = async () => {
-        try {
-            const images = await axios.get(`https://api.unsplash.com/photos/?client_id=${key}&per_page=30`)
-            // console.log("Images", images.data)
-            setImages(images.data)
-            return images.data
-        } catch (error) {
-            console.log("Error", error)
-        }
-    }
-
-    useEffect(() => {
-        fetchImages()
-    }, [])
+const Card = ({name,image,bio}) => {
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.card}>
                 <ImageBackground
-                    source={{ uri: images[2]?.urls.small }}
+                    source={{ uri: image }}
                     style={styles.image}
                 >
                     <View style={styles.cardInner}>
-                        <Text style={styles.name}>This is a text</Text>
-                        <Text style={styles.bio}>This is a bio text</Text>
+                        <Text style={styles.name}>{name}</Text>
+                        <Text style={styles.bio}>{bio}</Text>
                     </View>
                 </ImageBackground>
             </View>
